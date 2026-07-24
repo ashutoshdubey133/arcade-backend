@@ -18,6 +18,7 @@
 
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
+| `GET` | `/` | Root Health Check endpoint (returns `{ status: "ok" }`) |
 | `GET` | `/api/scores` | Returns high scores ordered descending |
 | `GET` | `/api/scores/game/:game` | Returns high scores for a specific game |
 | `POST` | `/api/scores` | Saves player score entry |

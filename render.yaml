@@ -1,0 +1,11 @@
+# Render.com Infrastructure Blueprint Configuration
+services:
+  - type: web
+    name: arcade-backend
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 20.0.0

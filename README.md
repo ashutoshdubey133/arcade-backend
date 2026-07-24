@@ -19,6 +19,7 @@ Independent REST API service for high scores, leaderboard persistence, and platf
 
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
+| `GET` | `/` | Root Health Check endpoint (returns `{ status: "ok" }`) |
 | `GET` | `/api/scores` | Returns top high scores sorted descending |
 | `GET` | `/api/scores/game/:game` | Filters scores by game name (`Ping Pong`, `Breakout`, `Minesweeper`, `Sky Letters`) |
 | `POST` | `/api/scores` | Saves a new score entry |

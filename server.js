@@ -14,6 +14,15 @@ const DATA_FILE = path.join(__dirname, 'scores.json');
 app.use(cors());
 app.use(express.json());
 
+// Root Health Check Route for Render Uptime Monitoring
+app.get('/', (req, res) => {
+  res.json({
+    status: 'ok',
+    service: 'Neon Arcade REST API',
+    timestamp: new Date().toISOString()
+  });
+});
+
 // Sample Initial Scores
 const SAMPLE_SCORES = [
   { id: 1, playerName: 'CyberKnight', game: 'Ping Pong', score: 15, mode: 'single (impossible)', date: new Date().toISOString() },
