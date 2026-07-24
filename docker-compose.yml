@@ -1,0 +1,14 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: arcade-backend
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./scores.json:/app/scores.json
+    restart: always
+    environment:
+      - NODE_ENV=production
+      - PORT=8080
