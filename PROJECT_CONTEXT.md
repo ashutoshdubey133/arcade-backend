@@ -1,7 +1,8 @@
 # 🤖 BACKEND PROJECT_CONTEXT.md — Agent Specification
 
 > **MANDATORY AI AGENT INSTRUCTION**:
-> Whenever an AI agent modifies code in `backend/`, **THE AGENT MUST IMMEDIATELY UPDATE THIS `PROJECT_CONTEXT.md` AND `README.md`** so future AI sessions remain 100% synchronized with the project state.
+> 1. Whenever an AI agent modifies code in `backend/`, **THE AGENT MUST IMMEDIATELY UPDATE THIS `PROJECT_CONTEXT.md` AND `README.md`** so future AI sessions remain 100% synchronized with the project state.
+> 2. **ALWAYS COMMIT AND PUSH**: At the end of every task execution, the agent MUST automatically stage, commit, and push all backend changes to origin main (`git add . && git commit -m "..." && git push origin main`).
 
 ---
 
