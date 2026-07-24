@@ -2,7 +2,12 @@
 
 > **MANDATORY AI AGENT INSTRUCTION**:
 > 1. Whenever an AI agent modifies code in `backend/`, **THE AGENT MUST IMMEDIATELY UPDATE THIS `PROJECT_CONTEXT.md` AND `README.md`** so future AI sessions remain 100% synchronized with the project state.
-> 2. **ALWAYS COMMIT AND PUSH**: At the end of every task execution, the agent MUST automatically stage, commit, and push all backend changes to origin main (`git add . && git commit -m "..." && git push origin main`).
+> 2. **ALWAYS COMMIT AND PUSH**: At the end of every task execution, the agent MUST automatically commit and push all backend changes to origin main (`git add . && git commit -m "..." && git push origin main`).
+
+## 📌 Backend Overview
+Node.js Express REST API backend for high score persistence, global leaderboards, and arcade statistics.
+
+* **Mandatory Representation Rule**: Every active arcade game (`Sky Letters`, `Ping Pong`, `Breakout`, `Minesweeper`) MUST be represented in `SAMPLE_SCORES` seeds and filtered endpoints.
 
 ---
 

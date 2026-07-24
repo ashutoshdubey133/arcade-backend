@@ -25,10 +25,11 @@ app.get('/', (req, res) => {
 
 // Sample Initial Scores
 const SAMPLE_SCORES = [
-  { id: 1, playerName: 'CyberKnight', game: 'Ping Pong', score: 15, mode: 'single (impossible)', date: new Date().toISOString() },
-  { id: 2, playerName: 'PixelMaster', game: 'Breakout', score: 450, mode: 'Level 2', date: new Date().toISOString() },
-  { id: 3, playerName: 'NeonRider', game: 'Minesweeper', score: 320, mode: 'medium', date: new Date().toISOString() },
-  { id: 4, playerName: 'RetroKing', game: 'Ping Pong', score: 10, mode: 'twoPlayer', date: new Date().toISOString() },
+  { id: 1, playerName: 'WordNinja', game: 'Sky Letters', score: 1850, mode: 'Wave 4 | 72s | 98% acc', date: new Date().toISOString() },
+  { id: 2, playerName: 'CyberKnight', game: 'Ping Pong', score: 15, mode: 'single (impossible)', date: new Date().toISOString() },
+  { id: 3, playerName: 'PixelMaster', game: 'Breakout', score: 450, mode: 'Level 2', date: new Date().toISOString() },
+  { id: 4, playerName: 'NeonRider', game: 'Minesweeper', score: 320, mode: 'medium', date: new Date().toISOString() },
+  { id: 5, playerName: 'RetroKing', game: 'Ping Pong', score: 10, mode: 'twoPlayer', date: new Date().toISOString() },
 ];
 
 // Read or initialize score data
