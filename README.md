@@ -1,5 +1,8 @@
 # 🚀 Neon Arcade - Backend REST API (Node.js + Express)
 
+> 🤖 **NOTE FOR AI AGENTS**:
+> Please refer to [`PROJECT_CONTEXT.md`](./PROJECT_CONTEXT.md) for full architectural specs. Whenever you make code modifications in this repository, **you MUST update `PROJECT_CONTEXT.md` and this `README.md`** to keep documentation completely up to date.
+
 Independent REST API service for high scores, leaderboard persistence, and platform statistics for the Neon Arcade games platform.
 
 ---
