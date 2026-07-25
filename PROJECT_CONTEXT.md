@@ -19,6 +19,13 @@ Node.js Express REST API backend for high score persistence, global leaderboards
 
 ---
 
+## ☁️ Deployment Specs
+* **Render Free Web Service**: Managed via `render.yaml` Blueprint.
+* **Live Base URL**: `https://arcade-backend-gtgl.onrender.com`
+* **Health Check**: `GET /` -> Returns `{ status: "ok" }`.
+* **24/7 Zero-Cold-Start Monitoring**: Active **UptimeRobot** HTTP monitor pings `https://arcade-backend-gtgl.onrender.com/` 24/7 every 5–10 minutes to prevent Render free tier service sleep.
+* **7-Day Auto-Pruning & Top 3 Immunity**: Scores older than 7 days are automatically pruned, except Top 3 scores in any game or overall which remain permanent.
+
 ## 📡 REST API Endpoints
 
 | Method | Endpoint | Description |
