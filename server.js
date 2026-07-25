@@ -10,6 +10,7 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 8080;
 const DATA_FILE = path.join(__dirname, 'scores.json');
+const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
 
 app.use(cors());
 app.use(express.json());
@@ -23,34 +24,46 @@ app.get('/', (req, res) => {
   });
 });
 
-// Sample Initial Scores
-const SAMPLE_SCORES = [
-  { id: 1, playerName: 'WordNinja', game: 'Sky Letters', score: 1850, mode: 'Wave 4 | 72s | 98% acc', date: new Date().toISOString() },
-  { id: 2, playerName: 'CyberKnight', game: 'Ping Pong', score: 15, mode: 'single (impossible)', date: new Date().toISOString() },
-  { id: 3, playerName: 'PixelMaster', game: 'Breakout', score: 450, mode: 'Level 2', date: new Date().toISOString() },
-  { id: 4, playerName: 'NeonRider', game: 'Minesweeper', score: 320, mode: 'medium', date: new Date().toISOString() },
-  { id: 5, playerName: 'RetroKing', game: 'Ping Pong', score: 10, mode: 'twoPlayer', date: new Date().toISOString() },
-];
+// Helper: Prune scores older than 7 days
+const pruneExpiredScores = (scoresList) => {
+  if (!Array.isArray(scoresList)) return [];
+  const now = Date.now();
+  return scoresList.filter(entry => {
+    if (!entry.date) return true;
+    const entryTime = new Date(entry.date).getTime();
+    if (isNaN(entryTime)) return true;
+    return (now - entryTime) <= SEVEN_DAYS_MS;
+  });
+};
 
-// Read or initialize score data
+// Read or initialize score data with 7-day auto-cleanup
 const getScoresData = () => {
   try {
     if (fs.existsSync(DATA_FILE)) {
       const content = fs.readFileSync(DATA_FILE, 'utf-8');
-      return JSON.parse(content);
+      const parsed = JSON.parse(content);
+      const pruned = pruneExpiredScores(parsed);
+      
+      // Save back if any expired items were pruned
+      if (pruned.length !== parsed.length) {
+        fs.writeFileSync(DATA_FILE, JSON.stringify(pruned, null, 2));
+      }
+      return pruned;
     }
   } catch (err) {
-    console.error("Error reading scores file, resetting:", err.message);
+    console.error("Error reading scores file:", err.message);
   }
 
-  // Seed sample scores
-  fs.writeFileSync(DATA_FILE, JSON.stringify(SAMPLE_SCORES, null, 2));
-  return SAMPLE_SCORES;
+  // Fresh start: empty scores array
+  const freshScores = [];
+  fs.writeFileSync(DATA_FILE, JSON.stringify(freshScores, null, 2));
+  return freshScores;
 };
 
 const saveScoresData = (scores) => {
   try {
-    fs.writeFileSync(DATA_FILE, JSON.stringify(scores, null, 2));
+    const pruned = pruneExpiredScores(scores);
+    fs.writeFileSync(DATA_FILE, JSON.stringify(pruned, null, 2));
   } catch (err) {
     console.error("Error saving scores file:", err.message);
   }
@@ -58,7 +71,7 @@ const saveScoresData = (scores) => {
 
 // ---------------- REST API ROUTES ----------------
 
-// 1. GET /api/scores - Fetch all scores ordered by score DESC
+// 1. GET /api/scores - Fetch all active scores (prunes entries older than 7 days)
 app.get('/api/scores', (req, res) => {
   const scores = getScoresData();
   const sorted = [...scores].sort((a, b) => b.score - a.score);
@@ -111,6 +124,15 @@ app.get('/api/stats', (req, res) => {
     serverType: 'Node.js Express'
   });
 });
+
+// 5. POST /api/admin/reset-fresh-start - Reset all handles and scores for a fresh start
+app.post('/api/admin/reset-fresh-start', (req, res) => {
+  fs.writeFileSync(DATA_FILE, JSON.stringify([], null, 2));
+  res.json({ success: true, message: 'All handles and scores reset for a fresh start.' });
+});
+
+// Write empty array to DATA_FILE right now for fresh start
+fs.writeFileSync(DATA_FILE, JSON.stringify([], null, 2));
 
 // Start Server
 app.listen(PORT, () => {
